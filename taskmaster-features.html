@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskMaster Features — I am Hicks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --apple-bg: #f5f5f7;
+            --apple-dark: #1d1d1f;
+            --apple-gray: #86868b;
+            --apple-blue: #0071e3;
+            --apple-blue-hover: #0077ed;
+            --section-padding: 100px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #fff;
+            color: var(--apple-dark);
+            line-height: 1.47059;
+            font-weight: 400;
+            letter-spacing: -0.022em;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 52px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-content {
+            max-width: 1024px;
+            width: 100%;
+            padding: 0 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        /* Hero */
+        .hero {
+            background: #000;
+            color: #fff;
+            padding: 140px 20px 80px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 6vw, 64px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.015em;
+        }
+
+        .hero h1 span {
+            font-weight: 300;
+        }
+
+        .hero-tagline {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 980px;
+            font-size: 17px;
+            font-weight: 400;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--apple-blue);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--apple-blue-hover);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--apple-blue);
+            border: 1px solid var(--apple-blue);
+            margin-left: 12px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 113, 227, 0.1);
+        }
+
+        /* Section Styles */
+        section {
+            padding: var(--section-padding) 20px;
+        }
+
+        .section-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--apple-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .section-headline {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.005em;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .section-subhead {
+            font-size: 21px;
+            color: var(--apple-gray);
+            max-width: 700px;
+            margin: 0 auto 60px;
+            text-align: center;
+        }
+
+        /* Feature Detail Blocks */
+        .feature-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 100px;
+        }
+
+        .feature-block.reverse {
+            direction: rtl;
+        }
+
+        .feature-block.reverse > * {
+            direction: ltr;
+        }
+
+        @media (max-width: 768px) {
+            .feature-block {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        .feature-visual {
+            background: linear-gradient(135deg, #1d1d1f 0%, #2d2d2f 100%);
+            border-radius: 24px;
+            padding: 40px;
+            min-height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mockup {
+            width: 100%;
+            background: #0f172a;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .mockup-header {
+            height: 32px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            gap: 8px;
+        }
+
+        .mockup-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .mockup-body {
+            padding: 24px;
+        }
+
+        .feature-text h3 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.015em;
+        }
+
+        .feature-text p {
+            font-size: 18px;
+            color: var(--apple-gray);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            font-size: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: var(--apple-blue);
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        /* Board Templates Grid */
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        @media (max-width: 768px) {
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .template-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .template-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .template-name {
+            color: #fff;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        /* Pricing */
+        .pricing-section {
+            background: var(--apple-bg);
+            text-align: center;
+        }
+
+        .price-large {
+            font-size: 72px;
+            font-weight: 700;
+            margin: 30px 0 10px;
+        }
+
+        .price-note {
+            font-size: 18px;
+            color: var(--apple-gray);
+            margin-bottom: 40px;
+        }
+
+        /* Footer */
+        footer {
+            background: #f5f5f7;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--apple-gray);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--apple-gray);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="iamhicks-landing.html" class="nav-logo">I am Hicks</a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="iamhicks-landing.html">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1><span>Task</span>Master</h1>
+            <p class="hero-tagline">The Kanban board that actually ships.</p>
+            <a href="#pricing" class="btn btn-primary">Get TaskMaster — $29</a>
+            <a href="iamhicks-landing.html" class="btn btn-secondary">← Back</a>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="section-content">
+            <div class="section-label">Features</div>
+            <h2 class="section-headline">Organize everything. Miss nothing.</h2>
+            <p class="section-subhead">A Kanban board that works offline, respects your privacy, and helps you actually get things done.</p>
+
+            <!-- Feature 1: Kanban Boards -->
+            <div class="feature-block">
+                <div class="feature-visual">
+                    <div style="display:flex;gap:16px;width:100%;align-items:stretch">
+                        <div style="flex:1;background:rgba(255,255,255,0.05);border-radius:12px;padding:16px">
+                            <div style="color:#fff;font-size:12px;font-weight:600;margin-bottom:12px">To Do</div>
+                            <div style="background:rgba(255,255,255,0.05);padding:12px;border-radius:8px;margin-bottom:8px;border-left:3px solid var(--apple-blue)">
+                                <div style="height:4px;width:80%;background:rgba(255,255,255,0.2);border-radius:2px"></div>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.05);padding:12px;border-radius:8px;border-left:3px solid #f59e0b">
+                                <div style="height:4px;width:60%;background:rgba(255,255,255,0.2);border-radius:2px"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="flex:1;background:rgba(255,255,255,0.05);border-radius:12px;padding:16px">
+                            <div style="color:#fff;font-size:12px;font-weight:600;margin-bottom:12px">Doing</div>
+                            <div style="background:rgba(255,255,255,0.05);padding:12px;border-radius:8px;border-left:3px solid #10b981">
+                                <div style="height:4px;width:70%;background:rgba(255,255,255,0.2);border-radius:2px"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="flex:1;background:rgba(255,255,255,0.05);border-radius:12px;padding:16px">
+                            <div style="color:#fff;font-size:12px;font-weight:600;margin-bottom:12px">Done</div>
+                            <div style="background:rgba(255,255,255,0.05);padding:12px;border-radius:8px;margin-bottom:8px;opacity:0.5">
+                                <div style="height:4px;width:90%;background:rgba(255,255,255,0.1);border-radius:2px;text-decoration:line-through"></div>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.05);padding:12px;border-radius:8px;opacity:0.5">
+                                <div style="height:4px;width:75%;background:rgba(255,255,255,0.1);border-radius:2px;text-decoration:line-through"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-text">
+                    <h3>Infinite Kanban Boards</h3>
+                    <p>Create as many boards as you need. One for work projects, one for personal tasks, one for content planning — all in one app.</p>
+                    <ul class="feature-list">
+                        <li>Create unlimited boards</li>
+                        <li>Custom column names (To Do, Doing, Done, etc.)</li>
+                        <li>Drag-and-drop cards between columns</li>
+                        <li>Quick-add cards without opening modal</li>
+                        <li>Switch between boards instantly</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 2: Board Templates -->
+            <div class="feature-block reverse">
+                <div class="feature-visual">
+                    <div class="templates-grid">
+                        <div class="template-card">
+                            <div class="template-icon">✅</div>
+                            <div class="template-name">To Do</div>
+                        </div>
+                        <div class="template-card">
+                            <div class="template-icon">📊</div>
+                            <div class="template-name">Kanban</div>
+                        </div>
+                        <div class="template-card">
+                            <div class="template-icon">🏃</div>
+                            <div class="template-name">Sprint</div>
+                        </div>
+                        <div class="template-card">
+                            <div class="template-icon">🐛</div>
+                            <div class="template-name">Bug Tracker</div>
+                        </div>
+                        <div class="template-card">
+                            <div class="template-icon">🎯</div>
+                            <div class="template-name">Goals</div>
+                        </div>
+                        <div class="template-card">
+                            <div class="template-icon">📝</div>
+                            <div class="template-name">Content</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-text">
+                    <h3>Ready-Made Templates</h3>
+                    <p>Start instantly with pre-built templates for common workflows. No setup required.</p>
+                    <ul class="feature-list">
+                        <li><strong>To Do:</strong> Simple two-column setup</li>
+                        <li><strong>Kanban:</strong> Backlog → To Do → In Progress → Done</li>
+                        <li><strong>Sprint:</strong> To Do → In Progress → Testing → Done</li>
+                        <li><strong>Bug Tracker:</strong> New → Confirmed → In Progress → Fixed → Closed</li>
+                        <li><strong>Goals:</strong> Long Term → Year → Quarter → Month → Week</li>
+                        <li><strong>Content:</strong> Ideas → Drafting → Editing → Scheduled → Published</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 3: Recurring Tasks -->
+            <div class="feature-block">
+                <div class="feature-visual">
+                    <div style="background:rgba(255,255,255,0.05);border-radius:16px;padding:30px;width:100%">
+                        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
+                            <div style="width:50px;height:50px;background:var(--apple-blue);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px">🔄</div>
+                            <div>
+                                <div style="color:#fff;font-weight:600">Daily Standup</div>
+                                <div style="color:rgba(255,255,255,0.5);font-size:14px">Repeats daily</div>
+                            </div>
+                        </div>
+                        
+                        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
+                            <div style="width:50px;height:50px;background:#8b5cf6;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px">📊</div>
+                            <div>
+                                <div style="color:#fff;font-weight:600">Weekly Review</div>
+                                <div style="color:rgba(255,255,255,0.5);font-size:14px">Repeats weekly on Friday</div>
+                            </div>
+                        </div>
+                        
+                        <div style="display:flex;align-items:center;gap:16px">
+                            <div style="width:50px;height:50px;background:#10b981;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px">💰</div>
+                            <div>
+                                <div style="color:#fff;font-weight:600">Monthly Report</div>
+                                <div style="color:rgba(255,255,255,0.5);font-size:14px">Repeats monthly</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-text">
+                    <h3>Recurring Tasks</h3>
+                    <p>Set it and forget it. Automatically create repeating tasks for routines, habits, and regular commitments.</p>
+                    <ul class="feature-list">
+                        <li>Daily tasks — morning routines, standups</li>
+                        <li>Weekly tasks — reviews, planning sessions</li>
+                        <li>Monthly tasks — reports, billing, maintenance</li>
+                        <li>Custom recurrence patterns</li>
+                        <li>Next occurrence auto-creates when you complete</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 4: Calendar View -->
+            <div class="feature-block reverse">
+                <div class="feature-visual">
+                    <div style="background:#fff;border-radius:16px;padding:24px;width:100%">
+                        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:16px">
+                            <div style="text-align:center;font-size:12px;color:#86868b">Mon</div>
+                            <div style="text-align:center;font-size:12px;color:#86868b">Tue</div>
+                            <div style="text-align:center;font-size:12px;color:#86868b">Wed</div>
+                            <div style="text-align:center;font-size:12px;color:#86868b">Thu</div>
+                            <div style="text-align:center;font-size:12px;color:#86868b">Fri</div>
+                            <div style="text-align:center;font-size:12px;color:#86868b">Sat</div>
+                            <div style="text-align:center;font-size:12px;color:#86868b">Sun</div>
+                        </div>
+                        
+                        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px">
+                            <div style="aspect-ratio:1;background:#f5f5f7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px">12</div>
+                            <div style="aspect-ratio:1;background:#f5f5f7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px">13</div>
+                            <div style="aspect-ratio:1;background:var(--apple-blue);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:600">14</div>
+                            <div style="aspect-ratio:1;background:#f5f5f7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px">15</div>
+                            <div style="aspect-ratio:1;background:#f5f5f7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px">16</div>
+                            <div style="aspect-ratio:1;background:#f5f5f7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px">17</div>
+                            <div style="aspect-ratio:1;background:#f5f5f7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px">18</div>
+                        </div>
+                        
+                        <div style="margin-top:16px;padding:12px;background:#f5f5f7;border-radius:8px">
+                            <div style="font-size:13px;font-weight:600;margin-bottom:4px">Today: 3 tasks due</div>
+                            <div style="font-size:12px;color:#86868b">Website redesign, Email campaign, Team meeting</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-text">
+                    <h3>Calendar View</h3>
+                    <p>See your deadlines at a glance. Switch between Kanban and calendar views to plan your week.</p>
+                    <ul class="feature-list">
+                        <li>Monthly calendar with due dates highlighted</li>
+                        <li>Click any date to see tasks due</li>
+                        <li>Visual overview of your workload</li>
+                        <li>Switch between Board view and Calendar view</li>
+                        <li>Spot busy weeks at a glance</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 5: Rich Cards -->
+            <div class="feature-block">
+                <div class="feature-visual">
+                    <div style="background:rgba(255,255,255,0.05);border-radius:16px;padding:24px;width:100%">
+                        <div style="display:flex;gap:8px;margin-bottom:16px">
+                            <div style="background:#ef4444;color:#fff;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:600">High</div>
+                            <div style="background:rgba(59,130,246,0.3);color:#60a5fa;padding:4px 12px;border-radius:12px;font-size:12px">Work</div>
+                            <div style="background:rgba(16,185,129,0.3);color:#34d399;padding:4px 12px;border-radius:12px;font-size:12px">Client A</div>
+                        </div>
+                        
+                        <div style="color:#fff;font-weight:600;margin-bottom:12px;font-size:18px">Website Redesign</div>
+                        
+                        <div style="color:rgba(255,255,255,0.6);font-size:14px;margin-bottom:16px">Update homepage hero section with new branding...</div>
+                        
+                        <div style="display:flex;gap:12px;margin-bottom:16px">
+                            <div style="display:flex;align-items:center;gap:6px;color:rgba(255,255,255,0.5);font-size:13px">
+                                📅 Due tomorrow
+                            </div>
+                            <div style="display:flex;align-items:center;gap:6px;color:rgba(255,255,255,0.5);font-size:13px">
+                                📎 3 files
+                            </div>
+                        </div>
+                        
+                        <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:16px">
+                            <div style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:8px">Checklist: 2/4</div>
+                            <div style="height:6px;background:rgba(255,255,255,0.1);border-radius:3px">
+                                <div style="width:50%;height:100%;background:var(--apple-blue);border-radius:3px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-text">
+                    <h3>Rich Task Cards</h3>
+                    <p>Every card can hold everything you need. Descriptions, checklists, labels, due dates, file attachments, and more.</p>
+                    <ul class="feature-list">
+                        <li><strong>Labels:</strong> Color-coded categories (Work, Personal, Urgent)</li>
+                        <li><strong>Priority:</strong> High, medium, low with visual indicators</li>
+                        <li><strong>Due dates:</strong> With overdue highlighting</li>
+                        <li><strong>Checklists:</strong> Subtasks with progress bars</li>
+                        <li><strong>File attachments:</strong> Link documents and references</li>
+                        <li><strong>Descriptions:</strong> Full notes and details</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 6: Offline & Private -->
+            <div class="feature-block reverse">
+                <div class="feature-visual">
+                    <div style="text-align:center;color:#fff">
+                        <div style="font-size:100px;margin-bottom:20px">✈️</div>
+                        <div style="font-size:24px;font-weight:600;margin-bottom:10px">Works Offline</div>
+                        <div style="font-size:16px;opacity:0.7">No WiFi? No problem.</div>
+                    </div>
+                </div>
+                <div class="feature-text">
+                    <h3>100% Offline &amp; Private</h3>
+                    <p>Works on a plane, in a bunker, or anywhere. Your data never leaves your device.</p>
+                    <ul class="feature-list">
+                        <li>No internet connection required</li>
+                        <li>All data stored locally in browser</li>
+                        <li>Export to JSON for backup</li>
+                        <li>Import to move between devices</li>
+                        <li>Zero cloud dependency</li>
+                        <li>Your tasks are yours alone</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing-section">
+        <div class="section-content">
+            <div class="section-label">Pricing</div>
+            <h2 class="section-headline">One purchase. Lifetime access.</h2>
+            <div class="price-large">$29</div>
+            <p class="price-note">One-time payment • All future updates included • No subscription</p>
+            <a href="#" class="btn btn-primary" onclick="alert('Redirect to Gumroad checkout')">Buy TaskMaster</a>
+            <p style="margin-top:40px;font-size:16px;color:var(--apple-gray)">
+                Or get the <a href="iamhicks-landing.html" style="color:var(--apple-blue)">Complete Bundle</a> with Trading Journal for $58
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="iamhicks-landing.html">Home</a>
+            <a href="#">Privacy</a>
+            <a href="#">Support</a>
+        </div>
+        <p>© 2026 I am Hicks</p>
+    </footer>
+</body>
+</html>
