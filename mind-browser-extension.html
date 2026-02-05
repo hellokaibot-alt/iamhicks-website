@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIND Browser Extension — Save to Your Second Brain</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1d1d1f 0%, #2d1f4f 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            color: #fff;
+        }
+
+        .mockup-container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .browser-mockup {
+            background: #2a2a2a;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            max-width: 900px;
+            margin: 0 auto 40px;
+        }
+
+        .browser-header {
+            background: #1a1a1a;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .browser-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .browser-dot.red { background: #ff5f57; }
+        .browser-dot.yellow { background: #febc2e; }
+        .browser-dot.green { background: #28c840; }
+
+        .browser-url {
+            flex: 1;
+            background: #2a2a2a;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .browser-content {
+            height: 300px;
+            background: #1a1a2e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .page-content {
+            text-align: center;
+            opacity: 0.5;
+        }
+
+        .page-content h2 {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .page-content p {
+            font-size: 16px;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        /* Extension Popup */
+        .extension-popup {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 360px;
+            background: #1a1a2e;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .mind-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .popup-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .popup-subtitle {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .page-preview {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .page-favicon {
+            width: 20px;
+            height: 20px;
+            background: #1da1f2;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .page-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+
+        .page-url {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px;
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .tags-input {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            color: #a78bfa;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tag-remove {
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        .tag-remove:hover {
+            opacity: 1;
+        }
+
+        .tag-input-field {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 13px;
+            padding: 4px;
+            min-width: 80px;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(139, 92, 246, 0.5);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .checkbox.checked {
+            background: #8b5cf6;
+            border-color: #8b5cf6;
+        }
+
+        .checkbox-label {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .checkbox-label strong {
+            color: #fff;
+        }
+
+        .save-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .features-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .features-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <h1>MIND Browser Extension</h1>
+        <p class="subtitle">Save anything to your second brain in one click. Auto-archives the full page content.</p>
+
+        <!-- Browser Mockup -->
+        <div class="browser-mockup">
+            <div class="browser-header">
+                <div class="browser-dot red"></div>
+                <div class="browser-dot yellow"></div>
+                <div class="browser-dot green"></div>
+                <div class="browser-url">
+                    <span>🔒</span>
+                    <span>twitter.com/i/web/status/123456...</span>
+                </div>
+            </div>
+
+            <div class="browser-content">
+                <div class="page-content">
+                    <h2>The Psychology of Risk Management</h2>
+                    <p>A viral thread about trading psychology that you want to save for later reference...</p>
+                </div>
+
+                <!-- Extension Popup -->
+                <div class="extension-popup">
+                    <div class="popup-header">
+                        <div class="mind-icon">🧠</div>
+                        <div>
+                            <div class="popup-title">Save to MIND</div>
+                            <div class="popup-subtitle">Your second brain</div>
+                        </div>
+                    </div>
+
+                    <div class="page-preview">
+                        <div class="page-favicon">𝕏</div>
+                        <div class="page-title">The Psychology of Risk Management in Trading — Twitter Thread</div>
+                        <div class="page-url">twitter.com/trader_psych...</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes (optional)</label>
+                        <input type="text" class="form-input" placeholder="Why are you saving this?">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Tags</label>
+                        <div class="tags-input">
+                            <span class="tag">
+                                trading
+                                <span class="tag-remove">×</span>
+                            </span>
+                            <span class="tag">
+                                psychology
+                                <span class="tag-remove">×</span>
+                            </span>
+                            <input type="text" class="tag-input-field" placeholder="+ add">
+                        </div>
+                    </div>
+
+                    <div class="checkbox-row">
+                        <div class="checkbox checked">✓</div>
+                        <span class="checkbox-label"><strong>Archive full page</strong> — Save complete content even if link breaks</span>
+                    </div>
+
+                    <button class="save-btn">💾 Save to MIND</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features-section">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">One-Click Save</div>
+                <div class="feature-desc">Click the MIND icon in your toolbar. No copy-pasting URLs. No switching apps.</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💾</div>
+                <div class="feature-title">Auto-Archival</div>
+                <div class="feature-desc">MIND downloads the full page content. Even if the original site goes down, you keep everything.</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <div class="feature-title">Full-Text Search</div>
+                <div class="feature-desc">Search inside every saved page. Find that quote you read months ago in seconds.</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
