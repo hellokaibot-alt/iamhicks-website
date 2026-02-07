@@ -2117,7 +2117,9 @@
             }
 
             renderTagResults(tag) {
+                console.log('renderTagResults called for tag:', tag);
                 const notes = this.data.notes.filter(n => n.tags.includes(tag));
+                console.log('Found notes:', notes.length);
                 
                 // Hide normal editor content and empty state using inline styles
                 const emptyState = document.getElementById('emptyState');
@@ -2125,7 +2127,12 @@
                 const tabsBar = document.getElementById('tabsBar');
                 const editorContentWrapper = document.getElementById('editorContentWrapper');
                 
-                if (emptyState) emptyState.style.cssText = 'display: none !important;';
+                console.log('Elements found:', { emptyState: !!emptyState, editorToolbar: !!editorToolbar, tabsBar: !!tabsBar, editorContentWrapper: !!editorContentWrapper });
+                
+                if (emptyState) {
+                    emptyState.style.cssText = 'display: none !important;';
+                    console.log('Hidden emptyState');
+                }
                 if (editorToolbar) editorToolbar.style.cssText = 'display: none !important;';
                 if (tabsBar) tabsBar.style.cssText = 'display: none !important;';
                 if (editorContentWrapper) editorContentWrapper.style.cssText = 'display: none !important;';
@@ -2136,6 +2143,7 @@
                     resultsContainer = document.createElement('div');
                     resultsContainer.id = 'tagResultsContainer';
                     document.querySelector('.main').appendChild(resultsContainer);
+                    console.log('Created tagResultsContainer');
                 }
                 
                 // Force inline styles for visibility
@@ -2153,6 +2161,7 @@
                     visibility: visible !important;
                     opacity: 1 !important;
                 `;
+                console.log('Set tagResultsContainer styles');
                 resultsContainer.innerHTML = `
                     <div style="padding: 24px; max-width: 900px; margin: 0 auto;">
                         <div style="margin-bottom: 24px;">
