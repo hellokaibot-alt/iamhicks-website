@@ -3219,7 +3219,7 @@
                 try {
                     await this.initIndexedDB();
                     this.loadData();
-                    // this.autoBackup(); // Temporarily disabled - causing quota errors
+                    this.autoBackup(); // Create backup on startup if data exists
                     this.setupEventListeners();
                     this.setupMobileGestures();
                     this.applyTheme();
