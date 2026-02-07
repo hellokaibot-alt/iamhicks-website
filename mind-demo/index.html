@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Mind</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
@@ -3189,6 +3192,18 @@
     <input type="file" id="importInput" accept=".json,.md,.markdown" hidden>
 
     <script>
+        // ==================== EMERGENCY CLEANUP ====================
+        // Clear old backups first to prevent quota errors on startup
+        (function() {
+            try {
+                localStorage.removeItem('kb_data_backup');
+                localStorage.removeItem('kb_backup_date');
+                console.log('Emergency cleanup: cleared old backups');
+            } catch (e) {
+                console.warn('Cleanup failed:', e);
+            }
+        })();
+
         // ==================== KNOWLEDGE BASE APP ====================
 
         class KnowledgeBase {
@@ -3227,7 +3242,7 @@
                 try {
                     await this.initIndexedDB();
                     this.loadData();
-                    this.autoBackup(); // Create backup on startup if data exists
+                    // this.autoBackup(); // DISABLED: Temporarily disabled to fix quota error
                     this.setupEventListeners();
                     this.setupMobileGestures();
                     this.applyTheme();
