@@ -2131,14 +2131,6 @@
                     resultsContainer = document.createElement('div');
                     resultsContainer.id = 'tagResultsContainer';
                     resultsContainer.className = 'tag-results-view';
-                    resultsContainer.style.position = 'absolute';
-                    resultsContainer.style.top = '0';
-                    resultsContainer.style.left = '0';
-                    resultsContainer.style.right = '0';
-                    resultsContainer.style.bottom = '0';
-                    resultsContainer.style.overflowY = 'auto';
-                    resultsContainer.style.zIndex = '10';
-                    resultsContainer.style.background = 'var(--bg-primary)';
                     document.querySelector('.main').appendChild(resultsContainer);
                 }
                 
