@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <title>Mind</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
@@ -3188,18 +3185,6 @@
     <input type="file" id="importInput" accept=".json,.md,.markdown" hidden>
 
     <script>
-        // ==================== EMERGENCY CLEANUP ====================
-        // Clear old backups first to prevent quota errors on startup
-        (function() {
-            try {
-                localStorage.removeItem('kb_data_backup');
-                localStorage.removeItem('kb_backup_date');
-                console.log('Emergency cleanup: cleared old backups');
-            } catch (e) {
-                console.warn('Cleanup failed:', e);
-            }
-        })();
-
         // ==================== KNOWLEDGE BASE APP ====================
 
         class KnowledgeBase {
@@ -3234,7 +3219,7 @@
                 try {
                     await this.initIndexedDB();
                     this.loadData();
-                    // this.autoBackup(); // DISABLED: Temporarily disabled to fix quota error
+                    // this.autoBackup(); // Temporarily disabled - causing quota errors
                     this.setupEventListeners();
                     this.setupMobileGestures();
                     this.applyTheme();
@@ -3257,20 +3242,11 @@
 
             autoBackup() {
                 // Silently create a backup if we have data
-                try {
-                    const data = localStorage.getItem('kb_data');
-                    if (data && data.length > 100) { // Only backup if substantial data exists
-                        // Clear old backup first to free up space
-                        localStorage.removeItem('kb_data_backup');
-                        localStorage.removeItem('kb_backup_date');
-                        // Then save new backup
-                        localStorage.setItem('kb_data_backup', data);
-                        localStorage.setItem('kb_backup_date', new Date().toISOString());
-                        console.log('Auto-backup created');
-                    }
-                } catch (e) {
-                    // Quota exceeded or other error - silently skip backup
-                    console.warn('Auto-backup skipped:', e.message);
+                const data = localStorage.getItem('kb_data');
+                if (data && data.length > 100) { // Only backup if substantial data exists
+                    localStorage.setItem('kb_data_backup', data);
+                    localStorage.setItem('kb_backup_date', new Date().toISOString());
+                    console.log('Auto-backup created');
                 }
             }
 
@@ -3389,17 +3365,7 @@
             }
 
             saveData() {
-                try {
-                    localStorage.setItem('kb_data', JSON.stringify(this.data));
-                } catch (e) {
-                    if (e.name === 'QuotaExceededError' || e.message.includes('quota')) {
-                        console.error('Storage quota exceeded. Try deleting some notes or images.');
-                        alert('Storage is full. Please delete some notes or images to save new data.');
-                    } else {
-                        console.error('Failed to save data:', e);
-                    }
-                    throw e;
-                }
+                localStorage.setItem('kb_data', JSON.stringify(this.data));
             }
 
             // ==================== THEME ====================
@@ -5914,24 +5880,14 @@
             }
 
             createBackup() {
-                try {
-                    const data = localStorage.getItem('kb_data');
-                    if (data) {
-                        // Clear old backup first to free space
-                        localStorage.removeItem('kb_data_backup');
-                        localStorage.removeItem('kb_backup_date');
-                        // Save new backup
-                        localStorage.setItem('kb_data_backup', data);
-                        localStorage.setItem('kb_backup_date', new Date().toISOString());
-                        document.getElementById('backupStatus').textContent = 'Backup created at ' + new Date().toLocaleString();
-                        this.showToast('Backup created successfully', 'success');
-                    } else {
-                        document.getElementById('backupStatus').textContent = 'No data to backup';
-                    }
-                } catch (e) {
-                    console.error('Backup failed:', e);
-                    document.getElementById('backupStatus').textContent = 'Backup failed: ' + e.message;
-                    this.showToast('Backup failed: ' + e.message, 'error');
+                const data = localStorage.getItem('kb_data');
+                if (data) {
+                    localStorage.setItem('kb_data_backup', data);
+                    localStorage.setItem('kb_backup_date', new Date().toISOString());
+                    document.getElementById('backupStatus').textContent = 'Backup created at ' + new Date().toLocaleString();
+                    this.showToast('Backup created successfully', 'success');
+                } else {
+                    document.getElementById('backupStatus').textContent = 'No data to backup';
                 }
             }
 
