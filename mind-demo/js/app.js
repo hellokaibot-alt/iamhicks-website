@@ -865,7 +865,7 @@
 
                 const note = {
                     id: 'note_welcome',
-                    title: '\u003ci class="ph ph-waving-hand"\u003e\u003c/i\u003e Welcome to Knowledge Base',
+                    title: '👋 Welcome to Knowledge Base',
                     content: welcomeContent,
                     folderId: 'root',
                     tags: ['getting-started', 'tutorial'],
