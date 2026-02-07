@@ -1877,9 +1877,11 @@
             }
 
             renderTagsCloud() {
+                console.log('renderTagsCloud called');
                 const container = document.getElementById('tagsAlphabetical');
                 const searchInput = document.getElementById('tagsSearch');
                 const tags = this.getAllTags().sort();
+                console.log('Tags found:', tags.length, tags);
 
                 if (tags.length === 0) {
                     container.innerHTML = '<div style="padding: 12px; color: var(--text-tertiary); font-size: 12px; text-align: center;">No tags yet</div>';
@@ -1949,6 +1951,7 @@
                         });
                     });
 
+                    console.log('Attaching click handlers to', container.querySelectorAll('.tag-item-small').length, 'tags');
                     container.querySelectorAll('.tag-item-small').forEach(el => {
                         el.addEventListener('click', () => {
                             const tag = el.dataset.tag;
