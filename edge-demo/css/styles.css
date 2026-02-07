@@ -5,12 +5,12 @@
     --text-primary: #ffffff;
     --text-secondary: #b4b4b4;
     --accent: #2eaadc;
-    --accent-hover: #4db8e0;
-    --success: #2eaadc;
-    --success-light: #4db8e0;
-    --danger: #dc4444;
-    --danger-light: #e06666;
-    --warning: #f5a623;
+    --accent-hover: #79b8ff;
+    --success: #238636;
+    --success-light: #2ea043;
+    --danger: #da3633;
+    --danger-light: #f85149;
+    --warning: #d29922;
     --border: #2a2a2a;
     --shadow: rgba(0, 0, 0, 0.5);
 }
@@ -400,4 +400,4 @@ button:hover {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--border);
 }
-/* Updated: Fri Feb  6 18:11:22 PST 2026 */
+/* Cache bust: 1770432180 */
