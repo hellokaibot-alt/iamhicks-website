@@ -1952,6 +1952,7 @@
                     container.querySelectorAll('.tag-item-small').forEach(el => {
                         el.addEventListener('click', () => {
                             const tag = el.dataset.tag;
+                            console.log('Tag clicked:', tag);
                             this.filterByTag(tag);
                         });
                     });
@@ -2079,6 +2080,7 @@
             }
 
             filterByTag(tag) {
+                console.log('filterByTag called:', tag);
                 // If already filtering by this tag and viewing a note, show results again
                 if (this.currentTagFilter === tag) {
                     if (this.currentNote) {
@@ -2113,6 +2115,7 @@
                 this.renderTagsCloud();
 
                 // Show tag results in main content
+                console.log('Calling renderTagResults from filterByTag');
                 this.renderTagResults(tag);
             }
 
