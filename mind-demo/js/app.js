@@ -2119,23 +2119,40 @@
             renderTagResults(tag) {
                 const notes = this.data.notes.filter(n => n.tags.includes(tag));
                 
-                // Hide normal editor content and empty state
-                document.getElementById('emptyState').classList.add('hidden');
-                document.getElementById('editorToolbar').classList.add('hidden');
-                document.getElementById('tabsBar').classList.add('hidden');
-                document.getElementById('editorContentWrapper').classList.add('hidden');
+                // Hide normal editor content and empty state using inline styles
+                const emptyState = document.getElementById('emptyState');
+                const editorToolbar = document.getElementById('editorToolbar');
+                const tabsBar = document.getElementById('tabsBar');
+                const editorContentWrapper = document.getElementById('editorContentWrapper');
+                
+                if (emptyState) emptyState.style.cssText = 'display: none !important;';
+                if (editorToolbar) editorToolbar.style.cssText = 'display: none !important;';
+                if (tabsBar) tabsBar.style.cssText = 'display: none !important;';
+                if (editorContentWrapper) editorContentWrapper.style.cssText = 'display: none !important;';
                 
                 // Create or get tag results container
                 let resultsContainer = document.getElementById('tagResultsContainer');
                 if (!resultsContainer) {
                     resultsContainer = document.createElement('div');
                     resultsContainer.id = 'tagResultsContainer';
-                    resultsContainer.className = 'tag-results-view';
                     document.querySelector('.main').appendChild(resultsContainer);
                 }
                 
-                // Clear previous and show
-                resultsContainer.style.display = 'block';
+                // Force inline styles for visibility
+                resultsContainer.style.cssText = `
+                    position: absolute;
+                    top: 50px;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    overflow-y: auto;
+                    z-index: 1000;
+                    background: var(--bg-primary, #1a1a1a);
+                    padding: 24px;
+                    display: block !important;
+                    visibility: visible !important;
+                    opacity: 1 !important;
+                `;
                 resultsContainer.innerHTML = `
                     <div style="padding: 24px; max-width: 900px; margin: 0 auto;">
                         <div style="margin-bottom: 24px;">
