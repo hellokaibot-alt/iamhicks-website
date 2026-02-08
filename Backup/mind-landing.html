@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIND — Your Second Brain, Actually Private</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --apple-bg: #f5f5f7;
+            --apple-dark: #1d1d1f;
+            --apple-gray: #86868b;
+            --apple-blue: #0071e3;
+            --mind-purple: #8b5cf6;
+            --mind-purple-light: #a78bfa;
+            --section-padding: 100px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #fff;
+            color: var(--apple-dark);
+            line-height: 1.47059;
+            font-weight: 400;
+            letter-spacing: -0.022em;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 52px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-content {
+            max-width: 1024px;
+            width: 100%;
+            padding: 0 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .hero {
+            background: linear-gradient(180deg, #1d1d1f 0%, #2d2d3f 100%);
+            color: #fff;
+            padding: 140px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            color: var(--mind-purple-light);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 6vw, 72px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-tagline {
+            font-size: 26px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .hero-sub {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 980px;
+            font-size: 17px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-left: 12px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        section {
+            padding: var(--section-padding) 20px;
+        }
+
+        .section-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--mind-purple);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+        }
+
+        .section-headline {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.005em;
+            margin-bottom: 24px;
+        }
+
+        .section-subhead {
+            font-size: 21px;
+            color: var(--apple-gray);
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        /* Three Pillars Section */
+        .pillars-section {
+            background: var(--apple-bg);
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 900px) {
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pillar-card {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 24px;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .pillar-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 24px;
+        }
+
+        .pillar-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .pillar-card p {
+            color: var(--apple-gray);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            background: #fff;
+        }
+
+        .vs-container {
+            background: var(--apple-dark);
+            color: #fff;
+            border-radius: 24px;
+            padding: 50px;
+            margin-top: 50px;
+        }
+
+        .vs-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .vs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .vs-table th {
+            text-align: left;
+            padding: 16px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .vs-table td {
+            padding: 20px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 15px;
+        }
+
+        .vs-table .app-name {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .vs-table .check {
+            color: #34c759;
+            font-weight: 600;
+        }
+
+        .vs-table .cross {
+            color: #ff3b30;
+        }
+
+        .vs-table .partial {
+            color: #ff9500;
+        }
+
+        .vs-highlight {
+            background: rgba(139, 92, 246, 0.15);
+        }
+
+        /* Features Section */
+        .features-section {
+            background: var(--apple-bg);
+        }
+
+        .feature-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-bottom: 100px;
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            .feature-row {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        .feature-visual {
+            background: #fff;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .feature-text h3 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .feature-text p {
+            font-size: 18px;
+            color: var(--apple-gray);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            font-size: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: var(--mind-purple);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* AI Demo Section */
+        .ai-section {
+            background: linear-gradient(180deg, #1d1d1f 0%, #2d1f4f 100%);
+            color: #fff;
+        }
+
+        .ai-section .section-headline {
+            color: #fff;
+        }
+
+        .ai-section .section-subhead {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .ai-chat-demo {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 700px;
+            margin: 40px auto 0;
+            text-align: left;
+        }
+
+        .chat-message {
+            margin-bottom: 20px;
+        }
+
+        .chat-user {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .chat-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--mind-purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .chat-bubble {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 14px 18px;
+            border-radius: 18px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .chat-ai .chat-bubble {
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background: #fff;
+            padding: 100px 20px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1000px;
+            margin: 60px auto 0;
+        }
+
+        @media (max-width: 900px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+        }
+
+        .pricing-card {
+            background: var(--apple-bg);
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: left;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .pricing-card.featured {
+            background: var(--apple-dark);
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-4px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .pricing-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pricing-desc {
+            font-size: 14px;
+            color: var(--apple-gray);
+            margin-bottom: 24px;
+            min-height: 40px;
+        }
+
+        .pricing-card.featured .pricing-desc {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .pricing-price {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pricing-price span {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--apple-gray);
+        }
+
+        .pricing-card.featured .pricing-price span {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .pricing-note {
+            font-size: 13px;
+            color: var(--apple-gray);
+            margin-bottom: 24px;
+        }
+
+        .pricing-card.featured .pricing-note {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--mind-purple);
+            font-weight: 700;
+        }
+
+        .pricing-card.featured .pricing-features li::before {
+            color: #a78bfa;
+        }
+
+        .btn-pricing {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-pricing-outline {
+            background: transparent;
+            color: var(--apple-dark);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-pricing-outline:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-pricing-primary {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: #fff;
+        }
+
+        .btn-pricing-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: var(--apple-bg);
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 900px;
+            margin: 50px auto 0;
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .faq-item {
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+        }
+
+        .faq-item h4 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .faq-item p {
+            color: var(--apple-gray);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: var(--apple-dark);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 60px 20px 40px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .footer-brand {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .footer-tagline {
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="iamhicks-landing.html" class="nav-logo">🌊 I am Hicks</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🧠 Your Second Brain</div>
+            <h1><span>MIND</span></h1>
+            <p class="hero-tagline">Everything you read, write, and save —<br>organized, searchable, and actually private.</p>
+            <p class="hero-sub">Notes + Bookmarks + AI that works offline. Your data stays on your device. Forever.</p>
+            <a href="#pricing" class="btn btn-primary">Get MIND — From $29</a>
+            <a href="#features" class="btn btn-secondary">See How It Works</a>
+        </div>
+    </section>
+
+    <!-- Three Pillars -->
+    <section class="pillars-section">
+        <div class="section-content">
+            <div class="section-label">Three Apps In One</div>
+            <h2 class="section-headline">Dump everything into your MIND.</h2>
+            <p class="section-subhead">No more scattered apps. Your notes, bookmarks, and research — all connected, all searchable, all yours.</p>
+            
+            <div class="pillars-grid">
+                <div class="pillar-card">
+                    <div class="pillar-icon">✍️</div>
+                    <h3>Write Notes</h3>
+                    <p>Capture ideas, meeting notes, journals, and long-form writing. Rich text editor with no Markdown to learn. Just type.</p>
+                </div>
+                
+                <div class="pillar-card">
+                    <div class="pillar-icon">🔖</div>
+                    <h3>Save Bookmarks</h3>
+                    <p>One-click save from any browser. Auto-archives the full webpage content. Never lose a link again — even if the original site goes down.</p>
+                </div>
+                
+                <div class="pillar-card">
+                    <div class="pillar-icon">🤖</div>
+                    <h3>Ask Your MIND</h3>
+                    <p>Local AI searches through everything you've saved. "What did I read about risk management last month?" Your MIND knows.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison -->
+    <section class="comparison-section">
+        <div class="section-content">
+            <div class="section-label">Why We're Different</div>
+            <h2 class="section-headline">One app replaces them all.</h2>
+            
+            <div class="vs-container">
+                <div class="vs-title">Compare the alternatives</div>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Notion</th>
+                            <th>Obsidian</th>
+                            <th>Raindrop</th>
+                            <th class="vs-highlight">MIND</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="app-name">Rich text notes</td>
+                            <td class="check">✓</td>
+                            <td class="partial">Markdown only</td>
+                            <td class="cross">✗</td>
+                            <td class="vs-highlight check">✓ WYSIWYG</td>
+                        </tr>
+                        <tr>
+                            <td class="app-name">Bookmark saving</td>
+                            <td class="partial">Manual</td>
+                            <td class="partial">Plugin</td>
+                            <td class="check">✓</td>
+                            <td class="vs-highlight check">✓ Built-in</td>
+                        </tr>
+                        <tr>
+                            <td class="app-name">Full-page archival</td>
+                            <td class="cross">✗</td>
+                            <td class="cross">✗</td>
+                            <td class="cross">✗</td>
+                            <td class="vs-highlight check">✓ Auto-saves</td>
+                        </tr>
+                        <tr>
+                            <td class="app-name">AI search/assistant</td>
+                            <td class="check">$10/mo</td>
+                            <td class="partial">Plugins</td>
+                            <td class="cross">✗</td>
+                            <td class="vs-highlight check">✓ Local AI</td>
+                        </tr>
+                        <tr>
+                            <td class="app-name">Works offline</td>
+                            <td class="cross">✗</td>
+                            <td class="check">✓</td>
+                            <td class="cross">✗</td>
+                            <td class="vs-highlight check">✓ 100%</td>
+                        </tr>
+                        <tr>
+                            <td class="app-name">Your data stays local</td>
+                            <td class="cross">Cloud only</td>
+                            <td class="check">✓</td>
+                            <td class="cross">Cloud only</td>
+                            <td class="vs-highlight check">✓ Always</td>
+                        </tr>
+                        <tr>
+                            <td class="app-name">Price</td>
+                            <td>$10/mo forever</td>
+                            <td>Free / $8/mo</td>
+                            <td>$3/mo</td>
+                            <td class="vs-highlight">$29-$59 once</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="features-section">
+        <div class="section-content">
+            <div class="section-label">Features</div>
+            <h2 class="section-headline">Everything your brain wishes it had.</h2>
+
+            <!-- Feature 1: Notes -->
+            <div class="feature-row">
+                <div class="feature-visual">
+                    <div style="width: 100%;">
+                        <div style="background: #f8f9fa; padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; display: flex; gap: 12px; align-items: center;">
+                            <span style="font-size: 14px; font-weight: 600;">B</span>
+                            <span style="font-size: 14px; font-style: italic;">I</span>
+                            <span style="font-size: 14px; text-decoration: underline;">U</span>
+                            <span style="color: #ddd;">|</span>
+                            <span style="font-size: 14px;">H1 H2</span>
+                            <span style="color: #ddd;">|</span>
+                            <span style="font-size: 14px;">• 1.</span>
+                            <span style="color: #ddd;">|</span>
+                            <span style="font-size: 14px;">❝</span>
+                        </div>
+                        <div style="font-size: 18px; font-weight: 700; margin-bottom: 12px;">Trading Psychology Insights</div>
+                        <div style="font-size: 15px; line-height: 1.7; color: #333;">
+                            <p style="margin-bottom: 12px;">Read an excellent thread today about fear of loss. Key takeaways:</p>
+                            <p style="margin-bottom: 12px; margin-left: 20px;">• Fear is evolutionary — our brains aren't built for trading</p>
+                            <p style="margin-bottom: 12px; margin-left: 20px;">• The solution isn't eliminating fear, but recognizing it</p>
+                            <p style="margin-left: 20px;">• Small position sizing reduces emotional response</p>
+                        </div>
+                        <div style="margin-top: 20px; display: flex; gap: 8px;">
+                            <span style="background: #e9d5ff; color: #7c3aed; padding: 4px 12px; border-radius: 20px; font-size: 12px;">#trading</span>
+                            <span style="background: #dbeafe; color: #2563eb; padding: 4px 12px; border-radius: 20px; font-size: 12px;">#psychology</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-text">
+                    <h3>Write Without Friction</h3>
+                    <p>No Markdown syntax to memorize. No formatting buttons cluttering your view. Just a clean, beautiful editor that gets out of your way.</p>
+                    
+                    <ul class="feature-list">
+                        <li>WYSIWYG — see exactly what you'll get</li>
+                        <li>Keyboard shortcuts for power users</li>
+                        <li>Nested folders for organization</li>
+                        <li>Tags and backlinks connect ideas</li>
+                        <li>Full-text search across all notes</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 2: Bookmarks -->
+            <div class="feature-row" style="direction: rtl;">
+                <div class="feature-text" style="direction: ltr;">
+                    <h3>Never Lose a Link Again</h3>
+                    <p>Browser extension saves any webpage in one click. MIND automatically archives the full content — text, images, and all. Even if the original site goes down, you still have everything.</p>
+                    
+                    <ul class="feature-list">
+                        <li>One-click browser extension</li>
+                        <li>Auto-archives full page content</li>
+                        <li>Extracts text for searchability</li>
+                        <li>Organize with tags and folders</li>
+                        <li>Full-text search inside saved pages</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-visual" style="direction: ltr;">
+                    <div style="width: 100%;">
+                        <div style="display: flex; align-items: center; gap: 12px; padding: 16px; background: #f8f9fa; border-radius: 12px; margin-bottom: 12px;">
+                            <div style="width: 40px; height: 40px; background: #3b82f6; border-radius: 8px; display: flex; align-items: center; center; color: #fff; font-weight: 700;">X</div>
+                            <div style="flex: 1;">
+                                <div style="font-size: 14px; font-weight: 600;">The Psychology of Risk Management</div>
+                                <div style="font-size: 12px; color: #666;">twitter.com • Saved 2 hours ago</div>
+                            </div>
+                            <span style="background: #10b981; color: #fff; padding: 4px 10px; border-radius: 12px; font-size: 11px;">Archived ✓</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px; padding: 16px; background: #f8f9fa; border-radius: 12px; margin-bottom: 12px;">
+                            <div style="width: 40px; height: 40px; background: #ef4444; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700;">YT</div>
+                            <div style="flex: 1;">
+                                <div style="font-size: 14px; font-weight: 600;">ICT 2024 Mentorship</div>
+                                <div style="font-size: 12px; color: #666;">youtube.com • Saved yesterday</div>
+                            </div>
+                            <span style="background: #10b981; color: #fff; padding: 4px 10px; border-radius: 12px; font-size: 11px;">Archived ✓</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px; padding: 16px; background: #f8f9fa; border-radius: 12px;">
+                            <div style="width: 40px; height: 40px; background: #8b5cf6; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px;">📝</div>
+                            <div style="flex: 1;">
+                                <div style="font-size: 14px; font-weight: 600;">Smart Money Concepts PDF</div>
+                                <div style="font-size: 12px; color: #666;">example.com • Saved last week</div>
+                            </div>
+                            <span style="background: #10b981; color: #fff; padding: 4px 10px; border-radius: 12px; font-size: 11px;">Archived ✓</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Section -->
+    <section class="ai-section">
+        <div class="section-content">
+            <div class="section-label" style="color: #a78bfa;">Local AI</div>
+            <h2 class="section-headline">Ask your MIND anything.</h2>
+            <p class="section-subhead">Private AI runs on your device. No cloud, no subscriptions, no data sent anywhere. Your MIND learns from everything you save.</p>
+            
+            <div class="ai-chat-demo">
+                <div class="chat-message chat-user">
+                    <div class="chat-avatar">👤</div>
+                    <div class="chat-bubble">What did I save about risk management strategies?</div>
+                </div>
+                
+                <div class="chat-message chat-ai">
+                    <div class="chat-avatar" style="background: #8b5cf6;">🧠</div>
+                    <div class="chat-bubble">
+                        You have 12 notes and 8 bookmarks about risk management. Key themes:<br><br>
+                        • Position sizing (mentioned in 7 notes)<br>
+                        • The 1% rule — you wrote "never risk more than 1% per trade" 3 times<br>
+                        • Psychology of loss aversion — linked to your journal entry from Jan 15<br><br>
+                        Your most-saved source: "Risk of Ruin Calculator" (bookmark from Dec 2024)
+                    </div>
+                </div>
+                
+                <div class="chat-message chat-user">
+                    <div class="chat-avatar">👤</div>
+                    <div class="chat-bubble">Summarize my notes on trading psychology from last month</div>
+                </div>
+                
+                <div class="chat-message chat-ai">
+                    <div class="chat-avatar" style="background: #8b5cf6;">🧠</div>
+                    <div class="chat-bubble">
+                        Your January trading psychology notes focus on 3 areas:<br><br>
+                        <strong>1. Fear of missing out</strong> — you recognized FOMO in 4 trades, all losers<br><br>
+                        <strong>2. Revenge trading</strong> — pattern noted: losses → bigger size → bigger losses<br><br>
+                        <strong>3. Pre-session routine</strong> — you journaled 12 times about meditation helping<br><br>
+                        <em>Insight: Your win rate was 68% on days you journaled vs 42% when you didn't.</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="pricing-section">
+        <div class="section-content">
+            <div class="section-label">Pricing</div>
+            <h2 class="section-headline">One purchase. Yours forever.</h2>
+            <p class="section-subhead">No subscriptions. No data limits. No lock-in. Export everything anytime.</p>
+            
+            <div class="pricing-grid">
+                <!-- MIND Free -->
+                <div class="pricing-card">
+                    <div class="pricing-name">MIND</div>
+                    <div class="pricing-desc">For writers and thinkers who want simplicity.</div>
+                    <div class="pricing-price">$29</div>
+                    <div class="pricing-note">One-time purchase</div>
+                    
+                    <ul class="pricing-features">
+                        <li>Unlimited notes</li>
+                        <li>Rich text editor</li>
+                        <li>Nested folders</li>
+                        <li>Tags & backlinks</li>
+                        <li>Full-text search</li>
+                        <li>Export to Markdown/PDF</li>
+                        <li>Mobile responsive</li>
+                    </ul>
+                    
+                    <a href="#" class="btn-pricing btn-pricing-outline" onclick="alert('Redirect to Gumroad checkout')">Buy MIND</a>
+                </div>
+                
+                <!-- MIND Pro (Featured) -->
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-name">MIND Pro</div>
+                    <div class="pricing-desc">For researchers who save everything and need it organized.</div>
+                    <div class="pricing-price">$49</div>
+                    <div class="pricing-note">One-time purchase</div>
+                    
+                    <ul class="pricing-features">
+                        <li><strong>Everything in MIND, plus:</strong></li>
+                        <li>Bookmark manager with browser extension</li>
+                        <li>Auto-archive webpages</li>
+                        <li>Search inside saved pages</li>
+                        <li>PDF attachments</li>
+                        <li>Desktop app (faster, auto-save)</li>
+                        <li>Priority support</li>
+                    </ul>
+                    
+                    <a href="#" class="btn-pricing btn-pricing-primary" onclick="alert('Redirect to Gumroad checkout')">Buy MIND Pro</a>
+                </div>
+                
+                <!-- MIND AI -->
+                <div class="pricing-card">
+                    <div class="pricing-name">MIND AI</div>
+                    <div class="pricing-desc">For power users who want their knowledge base to think.</div>
+                    <div class="pricing-price">$59</div>
+                    <div class="pricing-note">One-time purchase</div>
+                    
+                    <ul class="pricing-features">
+                        <li><strong>Everything in MIND Pro, plus:</strong></li>
+                        <li>Local AI assistant</li>
+                        <li>Semantic search</li>
+                        <li>Auto-suggested links</li>
+                        <li>Smart summaries</li>
+                        <li>Insight extraction</li>
+                        <li>Question answering</li>
+                    </ul>
+                    
+                    <a href="#" class="btn-pricing btn-pricing-outline" onclick="alert('Redirect to Gumroad checkout')">Buy MIND AI</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="section-content">
+            <div class="section-label">FAQ</div>
+            <h2 class="section-headline">Questions answered.</h2>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>Where is my data stored?</h4>
+                    <p><strong>On your device only.</strong> MIND stores everything locally — notes, bookmarks, even AI models. Nothing is sent to our servers because we don't have any.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h4>How does the AI work offline?</h4>
+                    <p>We download a small AI model (2-3GB) to your device. It runs entirely locally — no internet required, no data leaves your computer, ever.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h4>What happens if I clear my browser?</h4>
+                    <p><strong>MIND:</strong> Export regularly — data is in browser storage.<br><br><strong>MIND Pro/AI:</strong> Data is in files on your disk — clearing browser won't touch it.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h4>Can I sync between devices?</h4>
+                    <p>Not automatically. MIND is designed for privacy-first local storage. You can manually export/import data, or save the data folder to Dropbox/iCloud if desired.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h4>What browsers are supported?</h4>
+                    <p>MIND works in any modern browser. The bookmark extension is available for Chrome, Firefox, and Safari.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h4>Is there a refund policy?</h4>
+                    <p>Yes — 30-day money-back guarantee. If MIND doesn't work for you, email us for a full refund, no questions asked.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-brand">🌊 I am Hicks</div>
+        <div class="footer-tagline">Define yourself.</div>
+        <div class="footer-links">
+            <a href="iamhicks-landing.html">Home</a>
+            <a href="edge-features.html">EDGE (Trading)</a>
+            <a href="flow-features.html">FLOW (Tasks)</a>
+            <a href="finance-tracker-landing.html">VAULT (Finance)</a>
+            <a href="knowledge-base-landing.html">MIND (Notes)</a>
+        </div>
+        <p>© 2026 I am Hicks. All rights reserved.</p>
+    </footer>
+</body>
+</html>

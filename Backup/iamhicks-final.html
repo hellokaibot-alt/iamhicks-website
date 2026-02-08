@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>i_am_Hicks — Define Yourself</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --apple-bg: #f5f5f7;
+            --apple-dark: #1d1d1f;
+            --apple-gray: #86868b;
+            --apple-blue: #0071e3;
+            --apple-blue-hover: #0077ed;
+            --edge: #ef4444;
+            --flow: #3b82f6;
+            --vault: #10b981;
+            --mind: #8b5cf6;
+            --section-padding: 120px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #fff;
+            color: var(--apple-dark);
+            line-height: 1.47059;
+            font-weight: 400;
+            letter-spacing: -0.022em;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 52px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-content {
+            max-width: 1024px;
+            width: 100%;
+            padding: 0 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: -0.01em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px;
+            background: #000;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(0, 113, 227, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 980px;
+        }
+
+        .hero h1 {
+            font-size: clamp(56px, 10vw, 120px);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            font-weight: 300;
+        }
+
+        .hero-tagline {
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .hero-subline {
+            font-size: clamp(17px, 2vw, 21px);
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 980px;
+            font-size: 17px;
+            font-weight: 400;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--apple-blue);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--apple-blue-hover);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--apple-blue);
+            border: 1px solid var(--apple-blue);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 113, 227, 0.1);
+        }
+
+        /* Section Styles */
+        section {
+            padding: var(--section-padding) 20px;
+        }
+
+        .section-content {
+            max-width: 980px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-label {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--apple-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+
+        .section-headline {
+            font-size: clamp(40px, 5vw, 56px);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.005em;
+            margin-bottom: 24px;
+        }
+
+        .section-subhead {
+            font-size: 21px;
+            font-weight: 400;
+            color: var(--apple-gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .product-card {
+            background: var(--apple-bg);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .product-emoji {
+            font-size: 28px;
+        }
+
+        .product-name {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .product-name.edge { color: var(--edge); }
+        .product-name.flow { color: var(--flow); }
+        .product-name.vault { color: var(--vault); }
+        .product-name.mind { color: var(--mind); }
+
+        .product-tag {
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--apple-gray);
+            margin-bottom: 16px;
+            padding-left: 40px;
+        }
+
+        .product-desc {
+            font-size: 17px;
+            font-weight: 400;
+            color: var(--apple-dark);
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .product-link {
+            color: var(--apple-blue);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .product-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Why Section */
+        .why-section {
+            background: #000;
+            color: #fff;
+        }
+
+        .why-section .section-headline {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .why-section .section-subhead {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 21px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 17px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        /* Bundle Section */
+        .footer-cta {
+            background: var(--apple-bg);
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .bundle-box {
+            background: #000;
+            color: #fff;
+            border-radius: 28px;
+            padding: 60px 40px;
+            max-width: 600px;
+            margin: 40px auto 0;
+        }
+
+        .bundle-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .bundle-products {
+            margin: 30px 0;
+            text-align: left;
+            max-width: 280px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .bundle-product {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        .bundle-price {
+            font-size: 72px;
+            font-weight: 800;
+            margin: 30px 0 8px;
+        }
+
+        .bundle-save {
+            font-size: 18px;
+            font-weight: 400;
+            color: #34c759;
+            margin-bottom: 30px;
+        }
+
+        /* Footer */
+        footer {
+            background: #f5f5f7;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--apple-gray);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--apple-gray);
+            text-decoration: none;
+            font-weight: 400;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="nav-logo">i_am_Hicks</div>
+            <div class="nav-links">
+                <a href="#products">Products</a>
+                <a href="#why">Why Us</a>
+                <a href="#bundle">Bundle</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1><span>i_am_</span>Hicks</h1>
+            <p class="hero-tagline">Define yourself.</p>
+            <p class="hero-subline">Professional tools for traders, makers, builders, and thinkers who refuse to compromise on privacy.</p>
+            <div class="cta-group">
+                <a href="#products" class="btn btn-primary">Explore Products</a>
+                <a href="#bundle" class="btn btn-secondary">View Bundle</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products">
+        <div class="section-content">
+            <div class="section-label">Products</div>
+            <h2 class="section-headline">Who will you be?</h2>
+            <p class="section-subhead">Four tools. One philosophy. Zero compromise.</p>
+            
+            <div class="products-grid">
+                <!-- EDGE — i am Trading -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <span class="product-emoji">🔴</span>
+                        <div class="product-name edge">EDGE</div>
+                    </div>
+                    <div class="product-tag">i am Trading</div>
+                    <div class="product-desc">The journal that improves your edge. Track every trade, analyze psychology, master the mental game.</div>
+                    <div class="product-footer">
+                        <span class="product-price">$49</span>
+                        <a href="trading-journal-features.html" class="product-link">Learn more →</a>
+                    </div>
+                </div>
+
+                <!-- FLOW — i am Focus -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <span class="product-emoji">🔵</span>
+                        <div class="product-name flow">FLOW</div>
+                    </div>
+                    <div class="product-tag">i am Focus</div>
+                    <div class="product-desc">The Kanban board that ships. Manage projects, track bugs, plan content — all in one beautiful app.</div>
+                    <div class="product-footer">
+                        <span class="product-price">$29</span>
+                        <a href="taskmaster-features.html" class="product-link">Learn more →</a>
+                    </div>
+                </div>
+
+                <!-- VAULT — i am Wealth -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <span class="product-emoji">🟢</span>
+                        <div class="product-name vault">VAULT</div>
+                    </div>
+                    <div class="product-tag">i am Wealth</div>
+                    <div class="product-desc">Track money without selling your soul. Manual entry, smart budgets, visual reports. 100% private.</div>
+                    <div class="product-footer">
+                        <span class="product-price">$29</span>
+                        <a href="finance-tracker-landing.html" class="product-link">Learn more →</a>
+                    </div>
+                </div>
+
+                <!-- MIND — i am Clear -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <span class="product-emoji">🟣</span>
+                        <div class="product-name mind">MIND</div>
+                    </div>
+                    <div class="product-tag">i am Clear</div>
+                    <div class="product-desc">The notes app that works offline. No Markdown, no cloud, no subscriptions. Just write.</div>
+                    <div class="product-footer">
+                        <span class="product-price">$29</span>
+                        <a href="knowledge-base-landing.html" class="product-link">Learn more →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why" class="why-section">
+        <div class="section-content">
+            <div class="section-label">Why i_am_Hicks</div>
+            <h2 class="section-headline">Define your tools. Define yourself.</h2>
+            <p class="section-subhead">Most software sells your data, locks you into subscriptions, or disappears when the startup folds. We don't play those games.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h4 class="feature-title">I am Private</h4>
+                    <p class="feature-desc">Your data stays on your device. No cloud syncing. No data mining. No "analytics." Just pure, private productivity.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💪</div>
+                    <h4 class="feature-title">I am Free</h4>
+                    <p class="feature-desc">One purchase. Lifetime access. All future updates included. No monthly fees. No surprise charges. Ever.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h4 class="feature-title">I am Fast</h4>
+                    <p class="feature-desc">Single HTML files that load instantly. No bloated Electron apps. No waiting for servers. Just click and go.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h4 class="feature-title">I am Portable</h4>
+                    <p class="feature-desc">Any device with a browser. Mac, PC, Linux, Chromebook, phone. Your data exports with you. True portability.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h4 class="feature-title">I am Beautiful</h4>
+                    <p class="feature-desc">Thoughtfully crafted interfaces that make you want to use them. Dark mode by default. No clutter. Just focus.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h4 class="feature-title">I am Purposeful</h4>
+                    <p class="feature-desc">Built by someone who actually uses these tools daily. Every feature solves a real problem. No bloat.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bundle Section -->
+    <section id="bundle" class="footer-cta">
+        <div class="section-content">
+            <div class="section-label">Complete Collection</div>
+            <h2 class="section-headline">Become everything.</h2>
+            <p class="section-subhead">All four tools. One powerful suite. Unlimited potential.</p>
+
+            <div class="bundle-box">
+                <div class="bundle-title">i_am Complete</div>
+                
+                <div class="bundle-products">
+                    <div class="bundle-product">
+                        <span>🔴</span>
+                        <span>EDGE — Trading</span>
+                    </div>
+                    <div class="bundle-product">
+                        <span>🔵</span>
+                        <span>FLOW — Focus</span>
+                    </div>
+                    <div class="bundle-product">
+                        <span>🟢</span>
+                        <span>VAULT — Wealth</span>
+                    </div>
+                    <div class="bundle-product">
+                        <span>🟣</span>
+                        <span>MIND — Clear</span>
+                    </div>
+                </div>
+                
+                <div class="bundle-price">$99</div>
+                <div class="bundle-save">Save $57 (was $136)</div>
+                
+                <a href="#" class="btn btn-primary" style="font-size: 18px; padding: 18px 36px;">Get Complete Bundle</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="trading-journal-features.html">EDGE — Trading</a>
+            <a href="taskmaster-features.html">FLOW — Focus</a>
+            <a href="finance-tracker-landing.html">VAULT — Wealth</a>
+            <a href="knowledge-base-landing.html">MIND — Clear</a>
+        </div>
+        <p>© 2026 i_am_Hicks. Define yourself.</p>
+    </footer>
+</body>
+</html>
